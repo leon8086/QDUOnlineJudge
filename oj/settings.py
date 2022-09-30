@@ -128,11 +128,18 @@ AUTH_USER_MODEL = 'account.User'
 TEST_CASE_DIR = os.path.join(DATA_DIR, "test_case")
 LOG_PATH = os.path.join(DATA_DIR, "log")
 
-AVATAR_URI_PREFIX = "/public/avatar"
-AVATAR_UPLOAD_DIR = f"{DATA_DIR}{AVATAR_URI_PREFIX}"
+if "PREFIX" in os.environ:
+    PREFIX = "/"+os.environ["PREFIX"]
+else:
+    PREFIX = ""
 
-UPLOAD_PREFIX = "/public/upload"
-UPLOAD_DIR = f"{DATA_DIR}{UPLOAD_PREFIX}"
+AVATAR_URI_PREFIX = f"{PREFIX}/public/avatar"
+AVATAR_ABS_PREFIX = "/public/avatar"
+AVATAR_UPLOAD_DIR = f"{DATA_DIR}{AVATAR_ABS_PREFIX}"
+
+UPLOAD_PREFIX = f"{PREFIX}/public/upload"
+UPLOAD_ABS_PREFIX = "/public/upload"
+UPLOAD_DIR = f"{DATA_DIR}{UPLOAD_ABS_PREFIX}"
 
 STATICFILES_DIRS = [os.path.join(DATA_DIR, "public")]
 
