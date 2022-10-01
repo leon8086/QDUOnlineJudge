@@ -3,7 +3,12 @@
 from __future__ import unicode_literals
 
 from django.db import migrations, models
+import os
 
+if "PREFIX" in os.environ:
+    PREFIX = "/"+os.environ["PREFIX"]
+else:
+    PREFIX = ""
 
 class Migration(migrations.Migration):
 
@@ -50,7 +55,7 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='userprofile',
             name='avatar',
-            field=models.TextField(default='/public/avatar/default.png'),
+            field=models.TextField(default=f'{PREFIX}/public/avatar/default.png'),
         ),
         migrations.AlterField(
             model_name='userprofile',

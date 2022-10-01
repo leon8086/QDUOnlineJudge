@@ -9,7 +9,6 @@ env/
 bin/
 build/
 develop-eggs/
-dist/
 eggs/
 lib64/
 parts/
