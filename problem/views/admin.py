@@ -237,7 +237,7 @@ class ProblemAPI(ProblemBase):
             except Problem.DoesNotExist:
                 return self.error("Problem does not exist")
 
-        problems = Problem.objects.filter(contest_id__isnull=True).order_by("-create_time")
+        problems = Problem.objects.filter(contest_id__isnull=True).order_by("_id")
         if rule_type:
             if rule_type not in ProblemRuleType.choices():
                 return self.error("Invalid rule_type")
