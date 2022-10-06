@@ -611,13 +611,13 @@ class ImportProblemAPI(CSRFExemptAPIView, TestCaseZipProcessor):
                                                              spj_language=problem_info["spj"][
                                                                  "language"] if spj else None,
                                                              spj_version=rand_str(8) if spj else "",
-                                                             languages=SysOptions.language_names,
                                                              created_by=request.user,
                                                              visible=False,
-                                                             difficulty=Difficulty.MID,
                                                              total_score=sum(item["score"] for item in test_case_score)
                                                              if rule_type == ProblemRuleType.OI else 0,
-                                                             test_case_id=test_case_id
+                                                             test_case_id=test_case_id,
+                                                             languages=problem_info['languages'],
+                                                             difficulty=problem_info['difficulty']
                                                              )
                         for tag_name in problem_info["tags"]:
                             tag_obj, _ = ProblemTag.objects.get_or_create(name=tag_name)

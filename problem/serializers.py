@@ -151,6 +151,8 @@ class ExportProblemSerializer(serializers.ModelSerializer):
     spj = serializers.SerializerMethodField()
     template = serializers.SerializerMethodField()
     source = serializers.SerializerMethodField()
+    difficulty = serializers.SerializerMethodField()
+    languages = serializers.SerializerMethodField()
     tags = serializers.SlugRelatedField(many=True, slug_field="name", read_only=True)
 
     def get_display_id(self, obj):
@@ -189,12 +191,18 @@ class ExportProblemSerializer(serializers.ModelSerializer):
     def get_source(self, obj):
         return obj.source or f"{SysOptions.website_name} {SysOptions.website_base_url}"
 
+    def get_languages(self, obj):
+        return obj.languages
+
+    def get_difficulty(self, obj):
+        return obj.difficulty
+
     class Meta:
         model = Problem
         fields = ("display_id", "title", "description", "tags",
                   "input_description", "output_description",
                   "test_case_score", "hint", "time_limit", "memory_limit", "samples",
-                  "template", "spj", "rule_type", "source", "template")
+                  "template", "spj", "rule_type", "source", "template", "languages", "difficulty")
 
 
 class AddContestProblemSerializer(serializers.Serializer):
@@ -255,6 +263,8 @@ class ImportProblemSerializer(serializers.Serializer):
     source = serializers.CharField(max_length=200, allow_blank=True, allow_null=True)
     answers = serializers.ListField(child=AnswerSerializer())
     tags = serializers.ListField(child=serializers.CharField())
+    difficulty = serializers.CharField()
+    languages = serializers.ListField(child=serializers.CharField())
 
 
 class FPSProblemSerializer(serializers.Serializer):
